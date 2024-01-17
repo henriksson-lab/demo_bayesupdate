@@ -12,7 +12,7 @@ RUN apt-get update && \
 RUN Rscript -e 'install.packages(c("shiny","tidyverse","BiocManager","plotly","Cairo","shinyjs","pracma"))'
 
 # Command to install packages from Bioconductor; enter the list of required Bioconductor packages for your app here
-RUN Rscript -e 'BiocManager::install(c("Biostrings"),ask = F)'
+#RUN Rscript -e 'BiocManager::install(c("Biostrings"),ask = F)'
 
 RUN rm -rf /srv/shiny-server/*
 #COPY /app/ /srv/shiny-server/
