@@ -71,7 +71,7 @@ server <- function(input, output, session) {
       divisor <- sigma**2/n + sigma0**2
       list(
         mu=sigma0**2*xbar/divisor + sigma**2*mu0/divisor,
-        sigma=1/(1/sigma0**2 + n/sigma**2)
+        sigma=sqrt( 1/(1/sigma0**2 + n/sigma**2) )
       )    
     }
   })
