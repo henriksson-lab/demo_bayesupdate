@@ -49,30 +49,31 @@ server <- function(input, output, session) {
     
     # Solution from
     # https://people.eecs.berkeley.edu/~jordan/courses/260-spring10/lectures/lecture5.pdf
-    # eq 12
+    # eq 12. ... this seems wrong somehow?
+    # using instead from wikipedia https://en.wikipedia.org/wiki/Conjugate_prior 
     
     ### Prior
     mu0 <- input$mu0
     sigma0 <- input$sigma0
-    sigma <- input$sigma
     
     newdat <- getNewData()
     n <- length(newdat)
     if(n==0){
-      ### Return prior as posterior
+      ### Return posterior as prior
       list(mu=mu0, sigma=sigma0)
     } else {
       
       ### Distribution of new data
-      xbar <- mean(newdat)
-      #sigma <- sd(newdat)
+      xsum <- sum(newdat)
+      sigma <- input$sigma
 
-      ### Compute posterior, mu distributed as:
-      divisor <- sigma**2/n + sigma0**2
+      divisor <- 1/(1/sigma0**2 + n/sigma**2)
       list(
-        mu=sigma0**2*xbar/divisor + sigma**2*mu0/divisor,
-        sigma=sqrt( 1/(1/sigma0**2 + n/sigma**2) )
-      )    
+        mu = divisor*(mu0/sigma0**2 + xsum/sigma**2),
+        sigma = sqrt( divisor )
+      )
+
+
     }
   })
   
